@@ -1,10 +1,15 @@
 package pl.coderslab.charity.model;
+
+import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+
+import static java.lang.Integer.parseInt;
 
 
 //@NotNull : The CharSequence, Collection, Map or Array object is not null, but can be empty.
@@ -17,32 +22,40 @@ public class Donation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Min(value=1, message="Niepoprawna liczba worków")
+
+    @Min(value=1, message = "Niepoprawna liczba worków")
+    @NotNull(message="Uzupełnij pole")
+//    @Positive(message = "Niepoprawna liczba worków")
+//    @Range(min= 1, message = "Niepoprawna liczba worków")
+
     private Integer quantity;
 
-    @NotEmpty (message="Trzeba wybrać co najmniej 1 kategorię")
+    @NotEmpty(message = "Wybierz co najmniej 1 kategorię")
     @ManyToMany
     private List<Category> categories;
-
+    @javax.validation.constraints.NotNull(message = "Zaznacz istytucję")
     @ManyToOne
     private Institution institution;
 
-
+    @NotBlank(message = "Uzupełniej pole")
     private String street;
 
-
+    @NotBlank(message = "Uzupełnij pole")
     private String city;
     private String zipCode;
 
 
-
+    @NotNull(message = "Uzupełnij pole")
+    @Future(message = "Najwcześniejsza możliwa data odbioru to dzień jutrzejszy")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pickUpDate;
 
+    @NotNull(message = "Uzupełnij pole")
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime pickUpTime;
     private String pickUpComment;
 
+    @NotBlank(message = "Uzupełnij pole")
     private String phone;
 
     public Donation() {
@@ -128,6 +141,7 @@ public class Donation {
     public void setPickUpComment(String pickUpComment) {
         this.pickUpComment = pickUpComment;
     }
+
     public String getPhone() {
         return phone;
     }
