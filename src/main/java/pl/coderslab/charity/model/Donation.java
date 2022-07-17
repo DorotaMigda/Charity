@@ -1,5 +1,6 @@
 package pl.coderslab.charity.model;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -8,13 +9,6 @@ import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-
-import static java.lang.Integer.parseInt;
-
-
-//@NotNull : The CharSequence, Collection, Map or Array object is not null, but can be empty.
-// @NotEmpty : The CharSequence, Collection, Map or Array object is not null and size > 0.
-// @NotBlank : The string is not null and the trimmed length is greater than zero.
 
 @Entity
 public class Donation {
@@ -25,15 +19,12 @@ public class Donation {
 
     @Min(value=1, message = "Niepoprawna liczba worków")
     @NotNull(message="Uzupełnij pole")
-//    @Positive(message = "Niepoprawna liczba worków")
-//    @Range(min= 1, message = "Niepoprawna liczba worków")
-
     private Integer quantity;
 
     @NotEmpty(message = "Wybierz co najmniej 1 kategorię")
     @ManyToMany
     private List<Category> categories;
-    @javax.validation.constraints.NotNull(message = "Zaznacz istytucję")
+    @NotNull(message = "Zaznacz istytucję")
     @ManyToOne
     private Institution institution;
 
@@ -53,6 +44,7 @@ public class Donation {
     @NotNull(message = "Uzupełnij pole")
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime pickUpTime;
+    @Length (max=255, message="Za długi tekst, max 255 znaków")
     private String pickUpComment;
 
     @NotBlank(message = "Uzupełnij pole")

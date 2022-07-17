@@ -137,7 +137,7 @@
 
 
 
-                <form:input path="quantity" name="bags" type="number" step="1" min="1"/></label>
+                <form:input path="quantity" name="bags" type="number" step="1"/></label>
                <span><form:errors path="quantity" cssClass="error"/></span>
 
 
@@ -164,7 +164,7 @@
             <c:forEach var="institution" items="${institutions}">
               <div class="form-group form-group--checkbox">
                 <label>
-                  <form:radiobutton path="institution" value="${institution}" title="${institution.name}" name="institution"/>
+                  <form:radiobutton path="institution" value="${institution}" title="${institution.name}"/>
                   <span class="checkbox radio"></span>
                   <span class="description">
                   <div class="title">${institution.name}</div>
@@ -244,6 +244,7 @@
                     Uwagi dla kuriera
                       <form:textarea path="pickUpComment" type="text" name="moreInfo" rows="5"/>
                   </label>
+                  <span><form:errors path="pickUpComment" cssClass="error"/></span>
                 </div>
               </div>
             </div>
@@ -263,9 +264,11 @@
                 <ul>
                   <li>
                     <span class="icon icon-bag"></span>
+
                     <span class="summary--text"
-                      >4 worki ubrań w dobrym stanie dla dzieci</span
-                    >
+                      >4 worki ubrań w dobrym stanie dla dzieci</span>
+
+
                   </li>
 
                   <li>
