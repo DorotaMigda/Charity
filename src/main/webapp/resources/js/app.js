@@ -163,8 +163,40 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
       this.$step.parentElement.hidden = this.currentStep >= 5;
 
-      // TODO: get data from inputs and show them in summary
+      // get data from inputs and show them in summary
+
+
+      let categoriesArray = []
+      let checkboxes = donationForm.querySelectorAll('input[type=checkbox]:checked')
+      for (let i = 0; i < checkboxes.length; i++) {
+        categoriesArray.push(checkboxes[i].id)
+      }
+      quantityAndCategoryText.innerText = "Liczba worków: " +donationForm.elements.quantity.value + ",  Kategorie: "+categoriesArray;
+
+
+      let chosenInstitution = null;
+      if(donationForm.elements.institution!=null) {
+        let institutions = donationForm.elements.institution;
+        for (let i = 0; i < institutions.length; i++) {
+          if (institutions[i].checked) {
+            chosenInstitution = institutions[i].title;
+          }
+        }
+      }
+      if(chosenInstitution!=null) {
+        institutionText.innerText = "Instytucja: " + chosenInstitution;
+      }
+
+      streetText.innerText = donationForm.elements.street.value;
+      cityText.innerText = donationForm.elements.city.value;
+      zipCodeText.innerText = donationForm.elements.zipCode.value;
+      phoneText.innerText = donationForm.elements.phone.value;
+      pickUpDateText.innerText = donationForm.elements.pickUpDate.value;
+      pickUpTimeText.innerText = donationForm.elements.pickUpTime.value;
+      pickUpCommentText.innerText = donationForm.elements.pickUpComment.value;
+
     }
+
 
   }
   const form = document.querySelector(".form--steps");

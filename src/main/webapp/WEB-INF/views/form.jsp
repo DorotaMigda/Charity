@@ -101,7 +101,7 @@
         <div class="form--steps-counter">Krok <span>1</span>/4</div>
 
 
-          <form:form method="post" modelAttribute="donation" >
+          <form:form method="post" modelAttribute="donation" id="donationForm">
 
 
           <!-- STEP 1: class .active is switching steps -->
@@ -109,9 +109,10 @@
             <h3>Zaznacz co chcesz oddać:</h3>
 
             <c:forEach var="category" items="${categories}">
+
               <div class="form-group form-group--checkbox">
                 <label>
-                  <form:checkbox path="categories" value="${category}"/>
+                  <form:checkbox path="categories" value="${category}" id="${category.name}"/>
                   <span class="checkbox"></span>
                   <span class="description">
                       ${category.name}
@@ -121,6 +122,7 @@
             </c:forEach>
 
             <form:errors path="categories" cssClass="error"/>
+
 
             <div class="form-group form-group--buttons">
               <button type="button" class="btn next-step">Dalej</button>
@@ -148,9 +150,6 @@
             <div class="form-group form-group--buttons">
               <button type="button" class="btn prev-step">Wstecz</button>
               <button type="button" class="btn next-step">Dalej</button>
-<%--              <c:if test=errors>--%>
-<%--                <button type="button" class="btn next-step">Dalej</button>--%>
-<%--              </c:if>--%>
             </div>
           </div>
 
@@ -194,14 +193,14 @@
 
 
 
-                  <label> Ulica <form:input path="street" type="text" name="street"/></label>
+                  <label> Ulica <form:input path="street" type="text"/></label>
 
                   <span> <form:errors path="street" cssClass="error"/></span>
                 </div>
 
                 <div class="form-group form-group--inline">
 
-                  <label> Miasto <form:input path="city" type="text" name="city"/> </label>
+                  <label> Miasto <form:input path="city" type="text"/> </label>
                    <span> <form:errors path="city" cssClass="error"/></span>
 
 
@@ -210,7 +209,7 @@
                 <div class="form-group form-group--inline">
 
                   <label>
-                    Kod pocztowy   <form:input path="zipCode" type="text" name="zipCode"/>
+                    Kod pocztowy   <form:input path="zipCode" type="text"/>
                     <form:errors path="zipCode" cssClass="error"/>
                   </label>
                 </div>
@@ -218,7 +217,7 @@
                 <div class="form-group form-group--inline">
 
                   <label>
-                    Numer telefonu  <form:input path="phone" type="number" name="phone"/> </label>
+                    Numer telefonu  <form:input path="phone" type="number"/> </label>
                     <span><form:errors path="phone" cssClass="error"/></span>
 
                 </div>
@@ -228,13 +227,13 @@
                 <h4>Termin odbioru</h4>
                 <div class="form-group form-group--inline">
 
-                <label> Data  <form:input path="pickUpDate" type="date" name="pickUpDate"/></label>
+                <label> Data  <form:input path="pickUpDate" type="date"/></label>
                 <span><form:errors path="pickUpDate" cssClass="error"/></span>
 
                 </div>
                 <div class="form-group form-group--inline">
 
-                <label> Godzina   <form:input  path="pickUpTime" type="time" name="pickUpTime"/> </label>
+                <label> Godzina   <form:input  path="pickUpTime" type="time"/> </label>
                 <span><form:errors path="pickUpTime" cssClass="error"/></span>
 
                 </div>
@@ -242,7 +241,7 @@
 
                   <label>
                     Uwagi dla kuriera
-                      <form:textarea path="pickUpComment" type="text" name="moreInfo" rows="5"/>
+                      <form:textarea path="pickUpComment" type="text" rows="5"/>
                   </label>
                   <span><form:errors path="pickUpComment" cssClass="error"/></span>
                 </div>
@@ -265,17 +264,16 @@
                   <li>
                     <span class="icon icon-bag"></span>
 
-                    <span class="summary--text"
-                      >4 worki ubrań w dobrym stanie dla dzieci</span>
+                    <span class="summary--text" id="quantityAndCategoryText"></span>
+
+<%--                    <span class="summary--text">4 worki ubrań w dobrym stanie dla dzieci</span>--%>
 
 
                   </li>
 
                   <li>
                     <span class="icon icon-hand"></span>
-                    <span class="summary--text"
-                      >Dla fundacji "Mam marzenie" w Warszawie</span
-                    >
+                    <span class="summary--text" id="institutionText"></span>
                   </li>
                 </ul>
               </div>
@@ -284,19 +282,19 @@
                 <div class="form-section--column">
                   <h4>Adres odbioru:</h4>
                   <ul>
-                    <li>Prosta 51</li>
-                    <li>Warszawa</li>
-                    <li>99-098</li>
-                    <li>123 456 789</li>
+                    <li id="streetText"></li>
+                    <li id="cityText"></li>
+                    <li id="zipCodeText"></li>
+                    <li id="phoneText"></li>
                   </ul>
                 </div>
 
                 <div class="form-section--column">
                   <h4>Termin odbioru:</h4>
                   <ul>
-                    <li>13/12/2018</li>
-                    <li>15:40</li>
-                    <li>Brak uwag</li>
+                    <li id="pickUpDateText"></li>
+                    <li id="pickUpTimeText"></li>
+                    <li id="pickUpCommentText"></li>
                   </ul>
                 </div>
               </div>
